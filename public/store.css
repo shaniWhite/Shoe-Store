@@ -1,0 +1,189 @@
+/* General Container Styling */
+.container {
+    width: 100%;
+    max-width: 1000px;
+    padding: 40px;
+    margin: 0 auto;
+}
+
+/* Items Container */
+#products, #cart-items, #wishlist-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 20px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Individual Item Styling */
+.product, #cart-items li, #wishlist-items li {
+    background-color: #fff;
+    border: none;
+    padding: 20px;
+    margin-bottom: 20px;
+    flex: 1 1 calc(33.33% - 20px);
+    max-width: calc(33.33% - 20px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product:hover, #cart-items li:hover, #wishlist-items li:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Item Titles */
+.product strong, #cart-items li strong, #wishlist-items li strong {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+/* Product Image Styling */
+.product img, .container img {
+    width: 100%;
+    height: auto;
+    max-height: 250px; /* Adjusted to ensure better visibility without cutting */
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* Reduce margin between title and description */
+.product h2, .container h2 {
+    margin-bottom: 10px;
+}
+
+.product p, .container p {
+    margin-top: 5px;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+/* Quantity Control for Cart Items */
+#cart-items li div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+#cart-items li div button {
+    width: 30px;
+    height: 30px;
+    font-size: 1em;
+    text-align: center;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#cart-items li div button:hover {
+    background-color: #f0f0f0;
+}
+
+/* Original Button Styling */
+.product button, #cart-items li button, #wishlist-items li button, form button[type="submit"] {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #fff; /* White background */
+    color: #000; /* Black text color */
+    border: 1px solid #000; /* Black border */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.2s ease;
+    font-family: 'Montserrat', sans-serif; /* Retain Montserrat for buttons */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 0px; /* Square corners */
+    width: auto;
+    display: inline-block;
+    margin: 10px 0; /* Adjust margins for better spacing */
+    box-sizing: border-box;
+}
+
+.product button:hover, #cart-items li button:hover, #wishlist-items li button:hover, form button[type="submit"]:hover {
+    background-color: #f0f0f0; /* Light grey hover effect */
+    color: #007bff; /* Blue text color on hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Buttons Container Styling */
+.buttons-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center; /* Ensure buttons are centered horizontally */
+    width: 100%;
+    margin: 20px 0;
+}
+
+/* Size Selection Inline Styling */
+.size-selection {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.size-selection label {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.size-selection select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 8px 12px;
+    padding-right: 30px; /* Add extra padding to the right */
+    font-size: 1em;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px 16px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin-left: 10px;
+    width: auto;
+    box-sizing: border-box;
+}
+
+.size-selection select:hover {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.size-selection select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Styling for the Search Container */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#search {
+    width: 90%;
+    padding: 14px;
+    font-size: 1.3em;
+    border-radius: 25px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+}
