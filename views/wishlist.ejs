@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Wishlist</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/store.css">
+    <script>
+        function removeFromWishlist(title, size) {
+            fetch('/users/wishlist/remove', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title: title, size: size })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Remove the item from the DOM
+                    const itemElement = document.getElementById(`${title}-${size}`);
+                    if (itemElement) {
+                        itemElement.remove();
+                    }
+        
+                    // Check if the wishlist is now empty
+                    const wishlistItems = document.querySelectorAll('#wishlist-items li');
+                    if (wishlistItems.length === 0) {
+                        // Display "Your wishlist is empty" message
+                        const wishlistContainer = document.getElementById('wishlist-container');
+                        const emptyMessage = document.createElement('p');
+                        emptyMessage.textContent = 'Your wishlist is empty.';
+                        wishlistContainer.appendChild(emptyMessage);
+                    }
+                } else {
+                    console.error('Error removing item from wishlist.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+    </script>
+</head>
+<body>
+    <h1>Your Wishlist</h1>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <% if (typeof username !== 'undefined' && username === 'admin') { %>
+                <li><a href="/users/admin">Admin</a></li>
+            <% } %>
+            <li><a href="/users/login">Login</a></li>
+            <li><a href="/users/store">Store</a></li>
+            <li><a href="/users/cart">Cart</a></li>
+            <li><a href="/users/wishlist">Wishlist</a></li>
+            <li><a href="/users/giftcard">Buy Gift Card</a></li>  
+            <li><a href="/users/contact">Contact Us</a></li>
+            <li><a href="/users/terms">Regulations and Terms</a></li>
+            <li><a href="/users/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Wishlist Items -->
+    <div class="container">
+        <ul id="wishlist-items">
+            <% if (wishlist.length > 0) { %>
+                <% wishlist.forEach(function(item) { %>
+                    <li id="<%= item.title %>-<%= item.size %>">
+                        <strong><%= item.title %></strong> (Size: <%= item.size %>)
+                        <% if (item.image) { %>
+                            <img src="<%= item.image %>" alt="<%= item.title %>">
+                        <% } %>
+                        <p>Price: $<%= item.price %></p>
+                        <button onclick="removeFromWishlist('<%= item.title %>', '<%= item.size %>')">Remove</button>
+                    </li>
+                <% }); %>
+            <% } else { %>
+                <p>Your wishlist is empty.</p>
+            <% } %>
+        </ul>
+    </div>
+</body>
+</html>

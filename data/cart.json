@@ -1,0 +1,117 @@
+{
+  "shani": [
+    {
+      "title": "Black with Patches Dunks",
+      "description": "An eye-catching shoe perfect for everyday wear.",
+      "price": 89.99,
+      "image": "/images/black-colors.jpg",
+      "quantity": 3,
+      "size": "37"
+    }
+  ],
+  "admin": [
+    {
+      "title": "Black with Patches Dunks",
+      "description": "An eye-catching shoe perfect for everyday wear.",
+      "price": 89.99,
+      "image": "/images/black-colors.jpg",
+      "quantity": 3,
+      "size": "37"
+    },
+    {
+      "title": "Blue and White Dunks",
+      "description": "A versatile sneaker for casual outings.",
+      "price": 69.99,
+      "image": "/images/blue-white.jpg",
+      "quantity": 3,
+      "size": "37"
+    },
+    {
+      "title": "White & Green",
+      "description": "A clean and fresh style for any occasion.",
+      "price": 79.99,
+      "image": "/images/green-white.jpg",
+      "quantity": 1,
+      "size": "37"
+    },
+    {
+      "title": "Tie-Dye Black Dunks",
+      "description": "A bold choice with a unique color pattern.",
+      "price": 79.99,
+      "image": "/images/colorful.jpg",
+      "quantity": 1,
+      "size": "37"
+    }
+  ],
+  "shir": [],
+  "avi": [
+    {
+      "title": "Black with Patches Dunks",
+      "description": "A stylish casual shoe.",
+      "price": 89.99,
+      "image": "/images/black-colors.jpg",
+      "quantity": 1
+    },
+    {
+      "title": "Blue and white Dunks",
+      "description": "A stylish casual shoe.",
+      "price": 89.99,
+      "image": "/images/blue-white.jpg",
+      "quantity": 1
+    }
+  ],
+  "Roni": [
+    {
+      "title": "Black with Patches Dunks",
+      "description": "An eye-catching shoe perfect for everyday wear.",
+      "price": 89.99,
+      "image": "/images/black-colors.jpg",
+      "quantity": 1,
+      "size": "37"
+    }
+  ],
+  "Yair": [
+    {
+      "title": "Black with Patches Dunks",
+      "description": "An eye-catching shoe perfect for everyday wear.",
+      "price": 89.99,
+      "image": "/images/black-colors.jpg",
+      "quantity": 1,
+      "size": "37"
+    }
+  ],
+  "hello": [
+    {
+      "title": "Blue and White Dunks",
+      "description": "A versatile sneaker for casual outings.",
+      "price": 69.99,
+      "image": "/images/blue-white.jpg",
+      "quantity": 1,
+      "size": "37"
+    },
+    {
+      "title": "Green and Black",
+      "description": "A sleek design with contrasting colors.",
+      "price": 99.99,
+      "image": "/images/green-black.jpg",
+      "quantity": 1,
+      "size": "37"
+    },
+    {
+      "title": "Olive Green",
+      "description": "A classic look with a modern twist.",
+      "price": 69.99,
+      "image": "/images/green-white-red.jpg",
+      "quantity": 1,
+      "size": "37"
+    },
+    {
+      "title": "White & Green",
+      "description": "A clean and fresh style for any occasion.",
+      "price": 79.99,
+      "image": "/images/green-white.jpg",
+      "quantity": 1,
+      "size": "37"
+    }
+  ]
+}

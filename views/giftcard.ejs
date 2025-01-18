@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Gift Card</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/other.css">
+</head>
+<body>
+    <h1>Gift Card</h1>
+
+    <nav>
+        <ul>
+            <% if (typeof username !== 'undefined' && username === 'admin') { %>
+                <li><a href="/users/admin">Admin</a></li>
+            <% } %>
+            <li><a href="/users/login">Login</a></li>
+            <li><a href="/users/store">Store</a></li>
+            <li><a href="/users/cart">Cart</a></li>
+            <li><a href="/users/wishlist">Wishlist</a></li>
+            <li><a href="/users/giftcard">Buy Gift Card</a></li>  
+            <li><a href="/users/contact">Contact Us</a></li>
+            <li><a href="/users/terms">Regulations and Terms</a></li>
+            <li><a href="/users/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="page-container">
+        <form method="POST" action="/users/giftcard/checkout">
+            <div class="form-group">
+                <h2>Your best friend is the BEST? Let them know it...</h2>
+            </div>
+            
+            <div class="form-group">
+                <h3>FIRST STEP: Choose how much you want to spend on them (we are sure they deserve a lot)</h3>
+                <select name="amount" id="amount" required>
+                    <option value="">Select an amount</option>
+                    <option value="30">30 USD</option>
+                    <option value="45">45 USD</option>
+                    <option value="60">60 USD</option>
+                    <option value="75">75 USD</option>
+                    <option value="90">90 USD</option>
+                    <option value="105">105 USD</option>
+                    <option value="120">120 USD</option>
+                    <option value="135">135 USD</option>
+                    <option value="150">150 USD</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <h3>SECOND STEP: Write them something sweet, maybe a joke that only the two of you can remember</h3>
+                <textarea name="message" id="message" placeholder="Write your message here..." maxlength="200" required></textarea>
+                <div class="character-count">Character Count: <span id="charCount">0</span>/200</div>
+            </div>
+            
+            <div class="form-group">
+                <h3>THIRD STEP: Write your name</h3>
+                <input type="text" name="yourName" id="yourName" placeholder="Your Name" required>
+            </div>
+            
+            <div class="form-group">
+                <h3>FOURTH STEP: Send it as a gift?</h3>
+                <div style="width: 100%; display: flex; justify-content: space-between;">
+                    <button type="button" class="button-option" id="giftButton" style="width: 48%;">Send as a Gift</button>
+                    <button type="button" class="button-option" id="selfButton" style="width: 48%;">Send it to Me</button>
+                </div>
+            </div>
+            
+            <div class="form-group" id="recipientEmailDiv" style="display:none;">
+                <h3>Recipient Email Address:</h3>
+                <input type="email" name="recipientEmail" id="recipientEmail" placeholder="Recipient's Email" required>
+            </div>
+
+            <div class="form-group" id="selfMessage" style="display:none;">
+                <p>You will receive a link to the card and can either forward it to a friend via messenger or print out a postcard and give it to them in person.</p>
+            </div>
+        
+            <div class="form-group">
+                <button type="submit" id="checkoutButton">Checkout</button>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        document.getElementById('giftButton').addEventListener('click', function() {
+            document.getElementById('recipientEmailDiv').style.display = 'block';
+            document.getElementById('selfMessage').style.display = 'none';
+            document.getElementById('recipientEmail').required = true; // Make recipient email required
+        });
+        
+        document.getElementById('selfButton').addEventListener('click', function() {
+            document.getElementById('recipientEmailDiv').style.display = 'none';
+            document.getElementById('selfMessage').style.display = 'block';
+            document.getElementById('recipientEmail').required = false; // Remove required attribute
+        });
+        
+        document.getElementById('message').addEventListener('input', function() {
+            document.getElementById('charCount').textContent = this.value.length;
+        });
+    </script>
+</body>
+</html>

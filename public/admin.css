@@ -1,0 +1,200 @@
+/* General Styling */
+body {
+    background-color: #f5f7fa; /* Soft grey background */
+    color: #333333; /* Dark grey text */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Header Titles */
+h1, h2, h3 {
+    color: #2c3e50; /* Darker grey-blue for titles */
+    margin-bottom: 10px;
+    font-weight: 700;
+    text-align: center;
+}
+
+p {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: #636e72; /* Subtle grey for paragraph text */
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    max-width: 1000px;
+    border-collapse: collapse;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+    background-color: #ffffff;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+table th, table td {
+    padding: 15px 30px; /* Increased padding for more space between columns */
+    text-align: left;
+    border-bottom: 1px solid #ecf0f1; /* Light border */
+}
+
+table th {
+    background-color: #f8f9fa; /* Light grey header background */
+    font-weight: bold;
+    color: #2c3e50; /* Darker grey-blue text */
+}
+
+table tr:hover {
+    background-color: #f4f6f7; /* Slightly darker background on hover */
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 600px;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="email"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #bdc3c7; /* Soft grey border */
+    border-radius: 5px;
+    background-color: #ffffff; /* White background */
+    color: #34495e; /* Dark grey-blue text */
+    font-size: 1em;
+}
+
+form button {
+    padding: 12px 20px;
+    background-color: #2980b9; /* Blue button background */
+    color: #ffffff; /* White text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+form button:hover {
+    background-color: #21618c; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* List Styling */
+ul li {
+    padding: 15px;
+    border-bottom: 1px solid #ecf0f1; /* Light grey border */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items at the top */
+    background-color: #ffffff;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+ul li strong {
+    font-weight: bold;
+    color: #2c3e50; /* Dark grey-blue text */
+    width: 30%; /* Adjust width for the product title */
+}
+
+ul li span {
+    width: 40%; /* Adjust width for the product description */
+    color: #636e72; /* Same grey color for consistency */
+}
+
+ul li a {
+    width: 20%; /* Adjust width for the URL */
+    color: #2980b9; /* Blue for the URL link */
+    word-break: break-all; /* Prevent long URLs from overflowing */
+    text-decoration: none;
+}
+
+ul li form {
+    margin: 0;
+    flex-shrink: 0; /* Prevent the form (remove button) from shrinking */
+    width: 10%; /* Adjust width for the remove button */
+    display: flex;
+    justify-content: flex-end; /* Align the button to the right */
+}
+
+ul li button {
+    background-color: #e74c3c; /* Red button background for remove */
+    color: #ffffff; /* White text */
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+ul li button:hover {
+    background-color: #c0392b; /* Darker red on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* Input Field for Filtering */
+#usernameFilter {
+    padding: 12px 15px;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+    border: 1px solid #bdc3c7; /* Soft grey border */
+    border-radius: 5px;
+    background-color: #ffffff; /* White background */
+    color: #34495e; /* Dark grey-blue text */
+}
+
+/* Button for Clearing Logs */
+button[onclick="clearLogs()"] {
+    margin-left: 15px;
+    background-color: #f39c12; /* Yellow background for clear logs button */
+    color: #ffffff; /* White text */
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button[onclick="clearLogs()"]:hover {
+    background-color: #d68910; /* Darker yellow on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* Button Styling */
+.button {
+    display: inline-block;
+    padding: 8px 15px; /* Reduced padding to match the other buttons */
+    margin-bottom: 20px;
+    background-color: #2980b9; /* Blue background */
+    color: #ffffff; /* White text */
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.9em; /* Adjusted font size to match other buttons */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.button:hover {
+    background-color: #21618c; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}

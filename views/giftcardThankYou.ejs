@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You!</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/other.css">
+</head>
+<body>
+    <h1>Thank You!</h1>
+    <nav>
+        <ul>
+            <% if (typeof username !== 'undefined' && username === 'admin') { %>
+                <li><a href="/users/admin">Admin</a></li>
+            <% } %>
+            <li><a href="/users/login">Login</a></li>
+            <li><a href="/users/store">Store</a></li>
+            <li><a href="/users/cart">Cart</a></li>
+            <li><a href="/users/wishlist">Wishlist</a></li>
+            <li><a href="/users/giftcard">Buy Gift Card</a></li>  
+            <li><a href="/users/contact">Contact Us</a></li>
+            <li><a href="/users/terms">Regulations and Terms</a></li>
+            <li><a href="/users/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <h3>Thank you for purchasing a gift card! We are sure your friend will appreciate it.</h3>
+</body>
+</html>

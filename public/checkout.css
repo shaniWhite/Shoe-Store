@@ -1,0 +1,50 @@
+/* checkout.css */
+
+/* Import shared styles */
+@import url('main.css');
+
+/* Checkout-Specific Styles */
+
+.checkout-container {
+    background-color: #ffffff; /* White background */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 100%;
+    max-width: 500px;
+    margin: auto; /* Center the container with equal margin on all sides */
+}
+
+.order-summary {
+    margin-bottom: 30px;
+}
+
+.order-summary h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #007bff; /* Blue accent color */
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.order-summary ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.order-summary li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0; /* Light grey border for separation */
+}
+
+.total {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: right;
+    color: #007bff; /* Blue color for the total amount */
+}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/store.css">
+</head>
+<body>
+    <h1>Your Shopping Cart</h1>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <% if (typeof username !== 'undefined' && username === 'admin') { %>
+                <li><a href="/users/admin">Admin</a></li>
+            <% } %>
+            <li><a href="/users/login">Login</a></li>
+            <li><a href="/users/store">Store</a></li>
+            <li><a href="/users/cart">Cart</a></li>
+            <li><a href="/users/wishlist">Wishlist</a></li>
+            <li><a href="/users/giftcard">Buy Gift Card</a></li>  
+            <li><a href="/users/contact">Contact Us</a></li>
+            <li><a href="/users/terms">Regulations and Terms</a></li>
+            <li><a href="/users/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Cart Items -->
+    <div class="container">
+        <ul id="cart-items">
+            <% if (cart.length > 0) { %>
+                <% cart.forEach(function(item) { %>
+                    <li data-title="<%= item.title %>" data-size="<%= item.size %>">
+                        <strong><%= item.title %></strong> (Size: <%= item.size %>) 
+                        <% if (item.image) { %>
+                            <img src="<%= item.image %>" alt="<%= item.title %>">
+                        <% } %>
+                        Price: $<%= item.price.toFixed(2) %>
+                        
+                        <!-- Quantity Control -->
+                        <div>
+                            <button class="decrease-quantity">-</button>
+                            <span class="item-quantity"><%= item.quantity %></span>
+                            <button class="increase-quantity">+</button>
+                        </div>
+                    
+                        <!-- Remove Item -->
+                        <button class="remove-item" data-title="<%= item.title %>" data-size="<%= item.size %>">Remove</button>
+                    </li>
+                <% }); %>
+            <% } else { %>
+                <p>Your cart is empty. <a href="/users/store">Add items from the store</a>.</p>
+            <% } %>
+        </ul>
+    </div>
+
+    <!-- Checkout Button -->
+    <% if (cart.length > 0) { %>
+        <form action="/users/checkout" method="POST">
+            <button type="submit">Checkout</button>
+        </form>
+    <% } %>
+    
+
+    <script>
+        document.querySelectorAll('.increase-quantity').forEach(button => {
+            button.addEventListener('click', function() {
+                const title = this.closest('li').getAttribute('data-title');
+                fetch('/users/store/increase-quantity', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title: title })
+                }).then(response => response.json())
+                  .then(data => {
+                      if (data.success) {
+                          const quantityElement = this.closest('li').querySelector('.item-quantity');
+                          quantityElement.textContent = parseInt(quantityElement.textContent) + 1;
+                      } else {
+                          console.error('Failed to increase quantity.');
+                      }
+                  }).catch(error => console.error('Error:', error));
+            });
+        });
+        
+        document.querySelectorAll('.decrease-quantity').forEach(button => {
+            button.addEventListener('click', function() {
+                const title = this.closest('li').getAttribute('data-title');
+                fetch('/users/store/decrease-quantity', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title: title })
+                }).then(response => response.json())
+                  .then(data => {
+                      if (data.success) {
+                          const quantityElement = this.closest('li').querySelector('.item-quantity');
+                          const newQuantity = parseInt(quantityElement.textContent) - 1;
+                          if (newQuantity > 0) {
+                              quantityElement.textContent = newQuantity;
+                          } else {
+                              this.closest('li').remove(); // Remove the item if quantity is 0
+                          }
+                      } else {
+                          console.error('Failed to decrease quantity.');
+                      }
+                  }).catch(error => console.error('Error:', error));
+            });
+        });
+
+        document.querySelectorAll('.remove-item').forEach(button => {
+            button.addEventListener('click', function() {
+                const title = this.getAttribute('data-title');
+                const size = this.getAttribute('data-size');
+                fetch('/users/store/remove-from-cart', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title: title, size: size })
+                }).then(response => {
+                    if (response.ok) {
+                        this.closest('li').remove(); // Remove the item from the page
+                    } else {
+                        console.error('Failed to remove item.');
+                    }
+                }).catch(error => console.error('Error:', error));
+            });
+        });
+    </script>
+
+</body>
+</html>

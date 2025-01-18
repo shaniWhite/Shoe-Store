@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/store.css">
+    <!-- use AJAX -->
+    <script>
+    function addToCart(title) {
+        const size = document.getElementById(`size-${title}`).value;
+        console.log('addToCart function called with title:', title, 'and size:', size);
+        fetch('/users/store/add-to-cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title: title, size: size })
+        })
+        .then(response => {
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                return response.json();
+            }
+        })
+        .then(data => {
+            if (data && data.success) {
+                const button = document.querySelector(`button[onclick="addToCart('${title}')"]`);
+                button.textContent = 'Added to Cart';
+                button.disabled = true;
+                setTimeout(() => {
+                    button.textContent = 'Add to Cart';
+                    button.disabled = false;
+                }, 2000);
+            } else if (data && data.message) {
+                console.error('Error adding item to cart:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    function addToWishlist(title) {
+        const size = document.getElementById(`size-${title}`).value;
+        console.log('addToWishlist function called with title:', title, 'and size:', size);
+        fetch('/users/wishlist/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title: title, size: size })
+        })
+        .then(response => {
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                return response.json();
+            }
+        })
+        .then(data => {
+            const button = document.querySelector(`button[onclick="addToWishlist('${title}')"]`);
+            if (data && data.success) {
+                button.textContent = 'Added to Wishlist';
+            } else if (data && data.message === 'Item already in wishlist') {
+                button.textContent = 'Item already in Wishlist';
+            }
+            button.disabled = true;
+            setTimeout(() => {
+                button.textContent = 'Add to Wishlist';
+                button.disabled = false;
+            }, 2000);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    function filterProducts() {
+        const query = document.getElementById('search').value.toLowerCase();
+        const products = document.querySelectorAll('.product');
+
+        products.forEach(product => {
+            const title = product.querySelector('h2').textContent.toLowerCase();
+            const description = product.querySelector('p').textContent.toLowerCase();
+
+            if (title.includes(query) || description.includes(query)) {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    }
+    </script>
+</head>
+<body>
+    <h1>Sneakers Store</h1>
+
+    <!-- navigation -->
+    <nav>
+        <ul>
+            <% if (typeof username !== 'undefined' && username === 'admin') { %>
+                <li><a href="/users/admin">Admin</a></li>
+            <% } %>
+            <li><a href="/users/login">Login</a></li>
+            <li><a href="/users/store">Store</a></li>
+            <li><a href="/users/cart">Cart</a></li>
+            <li><a href="/users/wishlist">Wishlist</a></li>
+            <li><a href="/users/giftcard">Buy Gift Card</a></li>  
+            <li><a href="/users/contact">Contact Us</a></li>
+            <li><a href="/users/terms">Regulations and Terms</a></li>
+            <li><a href="/users/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="search" placeholder="Search for products..." onkeyup="filterProducts()">
+    </div>
+
+    <!-- Display Products -->
+    <div id="products">
+        <% products.forEach(function(product) { %>
+            <div class="product">
+                <h2><%= product.title %></h2>
+                <p><%= product.description %></p>
+                <% if (product.image) { %>
+                    <img src="<%= product.image %>" alt="<%= product.title %>">
+                <% } %>
+                <p>Price: $<%= product.price %></p>
+                
+                <!-- Size Selection -->
+                <div class="size-selection">
+                    <label for="size-<%= product.title %>">Select Size:</label>
+                    <select id="size-<%= product.title %>" name="size">
+                        <% for (var size = 37; size <= 45; size++) { %>
+                            <option value="<%= size %>"><%= size %></option>
+                        <% } %>
+                    </select>
+                </div>
+
+                <!-- Buttons Container -->
+                <div class="buttons-container">
+                    <button onclick="addToCart('<%= product.title %>')">Add to Cart</button>
+                    <button onclick="addToWishlist('<%= product.title %>')">Add to Wishlist</button>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+    
+</body>
+</html>

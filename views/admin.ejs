@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/admin.css">
+
+    <script>
+        function filterActivities() {
+            const filter = document.getElementById('usernameFilter').value.toLowerCase();
+            const rows = document.getElementsByClassName('activityRow');
+            for (let row of rows) {
+                const username = row.getElementsByTagName('td')[1].innerText.toLowerCase();
+                if (username.startsWith(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Admin Panel</h1>
+    <p>Here you can manage users and view activity logs.</p>
+
+    <!-- Button to Return to Store -->
+    <a href="/users/store" class="button">Return to Store</a>
+
+    <!-- Activity Log Section -->
+    <h2>User Activity Log</h2>
+    <input type="text" id="usernameFilter" onkeyup="filterActivities()" placeholder="Filter by username...">
+    <button onclick="clearLogs()">Clear Logs</button> <!-- Clear Logs Button -->
+
+    <table>
+        <thead>
+            <tr>
+                <th>Date/Time</th>
+                <th>Username</th>
+                <th>Activity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% activityLog.forEach(function(activity) { %>
+            <tr class="activityRow">
+                <td><%= activity.datetime %></td>
+                <td><%= activity.username %></td>
+                <td><%= activity.type %></td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+    <script>
+        function clearLogs() {
+            fetch('/users/admin/clear-logs', {
+                method: 'POST'
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Logs cleared!');
+                    location.reload(); // Refresh the page to show the cleared logs
+                } else {
+                    alert('Failed to clear logs.');
+                }
+            });
+        }
+    </script>
+
+    <!-- Product Management Section -->
+    <h2>Manage Products</h2>
+
+   <!-- Form to Add Products -->
+<form action="/users/admin/add-product" method="POST">
+
+    <input type="text" name="title" placeholder="Product Title" required>
+    <input type="text" name="description" placeholder="Product Description" required>
+    <input type="text" name="image" placeholder="Image Filename (e.g., /images/blackshoe.jpg)" required>
+    <input type="number" name="price" placeholder="Product Price (in $)" required>
+    <button type="submit">Add Product</button>
+</form>
+
+<h2>Existing Products</h2>
+<ul>
+    <% products.forEach(function(product) { %>
+    <li>
+        <strong><%= product.title %></strong> - <%= product.description %><br>
+        <!-- Construct the URL based on the image path -->
+        <a href="<%= product.image %>" target="_blank"><%= product.image %></a>
+        <form action="/users/admin/delete-product" method="POST" style="display:inline;">
+            <input type="hidden" name="title" value="<%= product.title %>">
+            <button type="submit">Remove</button>
+        </form>
+    </li>
+    <% }); %>
+</ul>
+
+
+</body>
+</html>

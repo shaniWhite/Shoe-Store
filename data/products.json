@@ -1,0 +1,56 @@
+[
+    {
+      "title": "Black with Patches Dunks",
+      "description": "An eye-catching shoe perfect for everyday wear.",
+      "price": 89.99,
+      "image": "/images/black-colors.jpg"
+    },
+    {
+      "title": "Blue and White Dunks",
+      "description": "A versatile sneaker for casual outings.",
+      "price": 69.99,
+      "image": "/images/blue-white.jpg"
+    },
+    {
+      "title": "Tie-Dye Black Dunks",
+      "description": "A bold choice with a unique color pattern.",
+      "price": 79.99,
+      "image": "/images/colorful.jpg"
+    },
+    {
+      "title": "Green and Black",
+      "description": "A sleek design with contrasting colors.",
+      "price": 99.99,
+      "image": "/images/green-black.jpg"
+    },
+    {
+      "title": "Olive Green",
+      "description": "A classic look with a modern twist.",
+      "price": 69.99,
+      "image": "/images/green-white-red.jpg"
+    },
+    {
+      "title": "White & Green",
+      "description": "A clean and fresh style for any occasion.",
+      "price": 79.99,
+      "image": "/images/green-white.jpg"
+    },
+    {
+      "title": "Purple-White with Platform",
+      "description": "A chic shoe with added height.",
+      "price": 89.99,
+      "image": "/images/purple-white-bottom.jpg"
+    },
+    {
+      "title": "White Dunks",
+      "description": "A timeless design with a polished finish.",
+      "price": 99.99,
+      "image": "/images/white.jpg"
+    },
+    {
+      "title": "Black with Patches",
+      "description": "A distinctive look with added flair.",
+      "price": 79.99,
+      "image": "/images/black.jpg"
+    }
+  ]

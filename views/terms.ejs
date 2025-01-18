@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regulations and Terms</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/other.css">
+</head>
+<body>
+    <h1>Regulations and Terms</h1>
+    
+    <nav>
+        <ul>
+            <% if (typeof username !== 'undefined' && username === 'admin') { %>
+                <li><a href="/users/admin">Admin</a></li>
+            <% } %>
+            <li><a href="/users/login">Login</a></li>
+            <li><a href="/users/store">Store</a></li>
+            <li><a href="/users/cart">Cart</a></li>
+            <li><a href="/users/wishlist">Wishlist</a></li>
+            <li><a href="/users/giftcard">Buy Gift Card</a></li>  
+            <li><a href="/users/contact">Contact Us</a></li>
+            <li><a href="/users/terms">Regulations and Terms</a></li>
+            <li><a href="/users/logout">Logout</a></li>
+        </ul>
+    </nav>
+    
+    <div class="page-container"> 
+        <div class="main-content">
+            <h2>Regulations</h2>
+            <p>At our store, we prioritize compliance with all relevant local and international regulations to ensure a safe and trustworthy shopping experience. We adhere to the highest standards in product authenticity, quality, and consumer protection. Our products are sourced from reputable suppliers and manufacturers who meet stringent quality controls. We are committed to transparency and operate in accordance with industry regulations to safeguard our customers' interests.</p>
+            <p>Additionally, we are compliant with data protection laws to ensure that your personal information is handled securely. Our privacy policy outlines how we collect, use, and protect your data, giving you peace of mind while shopping with us.</p>
+            
+            <h2>Exchanges and Returns</h2>
+            <p>We understand that sometimes you may need to exchange or return a product. To ensure you are satisfied with your purchase, we offer a comprehensive return policy:</p>
+            <ul>
+                <li><strong>Returns:</strong> You may return any item within 30 days of receipt for a full refund or exchange. The item must be in its original condition and packaging. To initiate a return, please contact our support team with your order details.</li>
+                <li><strong>Exchanges:</strong> If you wish to exchange an item for a different size or color, please follow the return procedure and indicate your desired replacement when contacting our support team.</li>
+                <li><strong>Non-Returnable Items:</strong> Some items may not be eligible for return due to hygiene reasons or other restrictions. Please check our returns policy for a list of non-returnable items.</li>
+            </ul>
+            
+            <h2>Delivery Times</h2>
+            <p>We strive to ensure timely delivery of your orders. Here’s what you need to know about our delivery process:</p>
+            <ul>
+                <li><strong>Standard Delivery:</strong> Orders are typically delivered within 3-5 business days. This timeframe includes processing and shipping time.</li>
+                <li><strong>Expedited Shipping:</strong> If you need your order sooner, we offer expedited shipping options at checkout. Delivery times for expedited shipping vary depending on your location and the selected shipping method.</li>
+                <li><strong>Order Processing:</strong> All orders are processed within 24 hours on business days. You will receive a confirmation email with a tracking number once your order has shipped.</li>
+                <li><strong>Tracking Your Order:</strong> You can track your order status using the tracking number provided in your confirmation email. If you have any issues with tracking, please contact our support team.</li>
+            </ul>
+            <p>If you have any questions about your delivery, please don’t hesitate to reach out to us for assistance.</p>
+        </div>
+    </div>
+</body>
+</html>
