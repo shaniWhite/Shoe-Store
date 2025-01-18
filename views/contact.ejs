@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/other.css">
+</head>
+<body>
+    <h1>Contact us</h1>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <% if (typeof username !== 'undefined' && username === 'admin') { %>
+                <li><a href="/users/admin">Admin</a></li>
+            <% } %>
+            <li><a href="/users/login">Login</a></li>
+            <li><a href="/users/store">Store</a></li>
+            <li><a href="/users/cart">Cart</a></li>
+            <li><a href="/users/wishlist">Wishlist</a></li>
+            <li><a href="/users/giftcard">Buy Gift Card</a></li>  
+            <li><a href="/users/contact">Contact Us</a></li>
+            <li><a href="/users/terms">Regulations and Terms</a></li>
+            <li><a href="/users/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="page-container">
+        <form action="/users/contact" method="post">
+            <div class="form-group">
+                <div class="form-group-half">
+                    <h3 for="name">Name:</h3>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group-half">
+                    <h3 for="email">Email:</h3>
+                    <input type="email" id="email" name="email" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-group-half">
+                    <h3 for="orderNumber">Order Number:</h3>
+                    <input type="text" id="orderNumber" name="orderNumber" required>
+                </div>
+                <div class="form-group-half">
+                    <h3 for="reason">Reason for Contact:</h3>
+                    <select id="reason" name="reason" required>
+                        <option value="order_tracking">Order Tracking</option>
+                        <option value="store_credit">Store Credit</option>
+                        <option value="exchange_returns">Exchange and Returns</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <h3 for="message">Message:</h3>
+            <textarea id="message" name="message" rows="4" required></textarea>
+            
+            <button type="submit" id="checkoutButton">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
