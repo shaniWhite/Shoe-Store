@@ -1,10 +1,5 @@
 {
-  "admin": [
-    {
-      "title": "Tie-Dye Black Dunks",
-      "size": "37"
-    }
-  ],
+  "admin": [],
   "shani": [
     {
       "title": "Olive Green",
@@ -47,6 +42,22 @@
     {
       "title": "Black with Patches Dunks",
       "size": "37"
+    }
+  ],
+  "shaniw": [
+    {
+      "title": "Blue and White Dunks",
+      "size": "37"
+    },
+    {
+      "title": "Blue and White Dunks",
+      "size": "38"
+    }
+  ],
+  "shaniwhite": [
+    {
+      "title": "White & Green",
+      "size": "38"
     }
   ]
 }

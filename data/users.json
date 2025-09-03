@@ -7,5 +7,13 @@
   "shani": {
     "username": "shani",
     "password": "4943"
+  },
+  "shaniw": {
+    "username": "shaniw",
+    "password": "shani"
+  },
+  "shaniwhite": {
+    "username": "shaniwhite",
+    "password": "shaniw"
   }
 }

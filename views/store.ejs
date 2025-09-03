@@ -1,154 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Store</title>
-    <link rel="stylesheet" href="/main.css">
-    <link rel="stylesheet" href="/store.css">
-    <!-- use AJAX -->
-    <script>
-    function addToCart(title) {
-        const size = document.getElementById(`size-${title}`).value;
-        console.log('addToCart function called with title:', title, 'and size:', size);
-        fetch('/users/store/add-to-cart', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ title: title, size: size })
-        })
-        .then(response => {
-            if (response.redirected) {
-                window.location.href = response.url;
-            } else {
-                return response.json();
-            }
-        })
-        .then(data => {
-            if (data && data.success) {
-                const button = document.querySelector(`button[onclick="addToCart('${title}')"]`);
-                button.textContent = 'Added to Cart';
-                button.disabled = true;
-                setTimeout(() => {
-                    button.textContent = 'Add to Cart';
-                    button.disabled = false;
-                }, 2000);
-            } else if (data && data.message) {
-                console.error('Error adding item to cart:', data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
-
-    function addToWishlist(title) {
-        const size = document.getElementById(`size-${title}`).value;
-        console.log('addToWishlist function called with title:', title, 'and size:', size);
-        fetch('/users/wishlist/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ title: title, size: size })
-        })
-        .then(response => {
-            if (response.redirected) {
-                window.location.href = response.url;
-            } else {
-                return response.json();
-            }
-        })
-        .then(data => {
-            const button = document.querySelector(`button[onclick="addToWishlist('${title}')"]`);
-            if (data && data.success) {
-                button.textContent = 'Added to Wishlist';
-            } else if (data && data.message === 'Item already in wishlist') {
-                button.textContent = 'Item already in Wishlist';
-            }
-            button.disabled = true;
-            setTimeout(() => {
-                button.textContent = 'Add to Wishlist';
-                button.disabled = false;
-            }, 2000);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
-
-    function filterProducts() {
-        const query = document.getElementById('search').value.toLowerCase();
-        const products = document.querySelectorAll('.product');
-
-        products.forEach(product => {
-            const title = product.querySelector('h2').textContent.toLowerCase();
-            const description = product.querySelector('p').textContent.toLowerCase();
-
-            if (title.includes(query) || description.includes(query)) {
-                product.style.display = 'block';
-            } else {
-                product.style.display = 'none';
-            }
-        });
-    }
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Store</title>
+  <link rel="stylesheet" href="/main.css" />
+  <link rel="stylesheet" href="/store.css" />
+  
 </head>
 <body>
-    <h1>Sneakers Store</h1>
-
-    <!-- navigation -->
-    <nav>
-        <ul>
-            <% if (typeof username !== 'undefined' && username === 'admin') { %>
-                <li><a href="/users/admin">Admin</a></li>
-            <% } %>
-            <li><a href="/users/login">Login</a></li>
-            <li><a href="/users/store">Store</a></li>
-            <li><a href="/users/cart">Cart</a></li>
-            <li><a href="/users/wishlist">Wishlist</a></li>
-            <li><a href="/users/giftcard">Buy Gift Card</a></li>  
-            <li><a href="/users/contact">Contact Us</a></li>
-            <li><a href="/users/terms">Regulations and Terms</a></li>
-            <li><a href="/users/logout">Logout</a></li>
-        </ul>
-    </nav>
-
-    <!-- Search Bar -->
-    <div class="search-container">
-        <input type="text" id="search" placeholder="Search for products..." onkeyup="filterProducts()">
+  <header style="width:100%; display:flex; align-items:center; justify-content:space-between; margin:0 0 24px 0; position:sticky; top:0; background:#fff; z-index:1002; box-shadow:0 2px 12px rgba(0,0,0,0.04); padding:24px 0;">
+    <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+      <form id="header-search" style="display:flex; align-items:center; gap:16px;">
+        <input type="text" id="search" placeholder="Search..." style="font-size:1em; padding:6px 16px; border:1px solid #ccc; border-radius:20px; width:180px; background:#fafafa;" />
+        <a href="/users/cart" class="icon-btn cart-btn" id="header-cart" title="Cart" aria-label="Cart" style="margin-left:8px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+            <circle cx="7" cy="20" r="2" />
+            <circle cx="17" cy="20" r="2" />
+            <path d="M3 6h2l.4 2M7 6h14l-1.35 6.44a2 2 0 0 1-1.96 1.56H8.53a2 2 0 0 1-1.96-1.56L5.21 6H3z" />
+          </svg>
+        </a>
+        <a href="/users/wishlist" class="icon-btn heart-btn" id="header-wishlist" title="Wishlist" aria-label="Wishlist" style="margin-left:4px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.5 2.09 1.09-1.08 2.76-2.09 4.5-2.09C19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </a>
+      </form>
     </div>
-
-    <!-- Display Products -->
-    <div id="products">
-        <% products.forEach(function(product) { %>
-            <div class="product">
-                <h2><%= product.title %></h2>
-                <p><%= product.description %></p>
-                <% if (product.image) { %>
-                    <img src="<%= product.image %>" alt="<%= product.title %>">
-                <% } %>
-                <p>Price: $<%= product.price %></p>
-                
-                <!-- Size Selection -->
-                <div class="size-selection">
-                    <label for="size-<%= product.title %>">Select Size:</label>
-                    <select id="size-<%= product.title %>" name="size">
-                        <% for (var size = 37; size <= 45; size++) { %>
-                            <option value="<%= size %>"><%= size %></option>
-                        <% } %>
-                    </select>
-                </div>
-
-                <!-- Buttons Container -->
-                <div class="buttons-container">
-                    <button onclick="addToCart('<%= product.title %>')">Add to Cart</button>
-                    <button onclick="addToWishlist('<%= product.title %>')">Add to Wishlist</button>
-                </div>
-            </div>
-        <% }); %>
+    <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+      <div style="font-family:'Montserrat', 'Playfair Display', Arial, sans-serif; font-size:2.8em; font-weight:800; letter-spacing:0.12em; color:#222; text-transform:uppercase; text-align:center; position:relative;">
+        StepUp
+        <span style="display:block; width:48px; height:4px; background:#bfa76f; margin:16px auto 0 auto; border-radius:2px;"></span>
+      </div>
     </div>
-    
+    <div style="flex:1; display:flex; align-items:center; justify-content:flex-end;">
+      <button id="hamburger" style="background:none; border:none; cursor:pointer; padding:8px;">
+        <span style="display:block; width:32px; height:24px; position:relative;">
+          <span style="display:block; height:3px; width:100%; background:#222; border-radius:2px; position:absolute; top:0;"></span>
+          <span style="display:block; height:3px; width:100%; background:#222; border-radius:2px; position:absolute; top:10px;"></span>
+          <span style="display:block; height:3px; width:100%; background:#222; border-radius:2px; position:absolute; top:20px;"></span>
+        </span>
+      </button>
+    </div>
+  <%- include('partials/sidebar') %>
+  </header>
+
+  <!-- navigation -->
+  <!-- <nav>
+    <ul>
+      <% if (typeof username !== 'undefined' && username === 'admin') { %>
+        <li><a href="/users/admin">Admin</a></li>
+      <% } %>
+      <li><a href="/users/login">Login</a></li>
+      <li><a href="/users/store">Store</a></li>
+      <li><a href="/users/cart">Cart</a></li>
+      <li><a href="/users/wishlist">Wishlist</a></li>
+      <li><a href="/users/giftcard">Buy Gift Card</a></li>
+      <li><a href="/users/contact">Contact Us</a></li>
+      <li><a href="/users/terms">Regulations and Terms</a></li>
+      <li><a href="/users/logout">Logout</a></li>
+    </ul>
+  </nav>
+
+   -->
+
+  <!-- Display Products -->
+  <div id="products">
+    <% products.forEach(function(product, idx) { %>
+      <div class="product" data-title="<%- product.title %>">
+        <h2 style="font-family:'Montserrat','Playfair Display',Arial,sans-serif; font-size:1.35em; font-weight:700; letter-spacing:0.06em; color:#222; margin-bottom:8px; text-align:center;">
+          <%- product.title %>
+        </h2>
+        <p><%- product.description %></p>
+        <% if (product.image) { %>
+          <img src="<%- product.image %>" alt="<%- product.title %>">
+        <% } %>
+        <p>$<%- product.price %></p>
+
+        <div class="buttons-container product-actions" style="position: relative;">
+          <button class="icon-btn cart-btn" type="button" data-title="<%- product.title %>" title="Add to Cart" aria-label="Add <%- product.title %> to cart">
+            <svg viewBox="0 0 24 24" class="cart-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+              <circle cx="7" cy="20" r="2" />
+              <circle cx="17" cy="20" r="2" />
+              <path d="M3 6h2l.4 2M7 6h14l-1.35 6.44a2 2 0 0 1-1.96 1.56H8.53a2 2 0 0 1-1.96-1.56L5.21 6H3z" />
+            </svg>
+          </button>
+          <button class="icon-btn heart-btn" type="button" data-title="<%- product.title %>" title="Add to Wishlist" aria-label="Add <%- product.title %> to wishlist">
+            <svg viewBox="0 0 24 24" class="heart-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.5 2.09 1.09-1.08 2.76-2.09 4.5-2.09C19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </button>
+          <div class="size-popover" style="display:none; position:absolute; top:40px; left:0; background:#fff; border:1px solid #ddd; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.08); padding:12px 16px; z-index:10; min-width:120px;">
+            <div style="margin-bottom:8px; font-weight:500;">Choose Size</div>
+            <ul class="size-list" style="list-style:none; margin:0; padding:0;">
+              <% for (var size = 37; size <= 45; size++) { %>
+                <li><button type="button" class="size-option" data-size="<%= size %>" style="width:100%; padding:6px 0; background:none; border:none; color:#222; font-size:1em; cursor:pointer;"> <%= size %> </button></li>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+
+  <!-- Remove modal markup, replaced by popover -->
+
+  <script>
+    // Hamburger menu logic
+    document.addEventListener('DOMContentLoaded', function() {
+      var sidebar = document.getElementById('sidebar');
+      var backdrop = document.getElementById('sidebar-backdrop');
+      var hamburger = document.getElementById('hamburger');
+      var closeSidebar = document.getElementById('close-sidebar');
+      hamburger.addEventListener('click', function(e) {
+        sidebar.style.right = '0';
+        backdrop.style.display = 'block';
+      });
+      closeSidebar.addEventListener('click', function(e) {
+        sidebar.style.right = '-320px';
+        backdrop.style.display = 'none';
+      });
+      backdrop.addEventListener('click', function(e) {
+        sidebar.style.right = '-320px';
+        backdrop.style.display = 'none';
+      });
+    });
+    function $(sel, root=document) { return root.querySelector(sel); }
+    function $all(sel, root=document) { return Array.from(root.querySelectorAll(sel)); }
+
+    // Hide all popovers
+    function hideAllPopovers() {
+      $all('.size-popover').forEach(pop => pop.style.display = 'none');
+    }
+
+    // Show popover for a specific product and action
+    function showPopover(btn, action) {
+      hideAllPopovers();
+      const popover = btn.parentElement.querySelector('.size-popover');
+      popover.style.display = 'block';
+      popover.dataset.action = action;
+      popover.dataset.title = btn.dataset.title;
+    }
+
+    // Handle size selection
+    async function handleSizeSelect(e) {
+      const btn = e.target;
+      if (!btn.classList.contains('size-option')) return;
+      const size = btn.dataset.size;
+      const popover = btn.closest('.size-popover');
+      const action = popover.dataset.action;
+      const title = popover.dataset.title;
+      hideAllPopovers();
+      // Send request
+      const url = action === 'wishlist' ? '/users/wishlist/add' : '/users/store/add-to-cart';
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, size })
+      });
+      if (res.redirected) {
+        window.location.href = res.url;
+        return;
+      }
+      const data = await res.json().catch(() => null);
+      if (data && data.success) {
+        // Mark button active
+        const parent = popover.parentElement;
+        if (action === 'wishlist') {
+          parent.querySelector('.heart-btn').classList.add('active');
+          parent.querySelector('.heart-btn').disabled = true;
+        } else {
+          parent.querySelector('.cart-btn').classList.add('active');
+          parent.querySelector('.cart-btn').disabled = true;
+        }
+      } else if (data && data.message) {
+        console.error('Server message:', data.message);
+      }
+    }
+
+    // Wire up events
+    document.addEventListener('DOMContentLoaded', () => {
+      // Cart popover
+      $all('.cart-btn').forEach(btn => btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        showPopover(btn, 'cart');
+      }));
+      // Wishlist popover
+      $all('.heart-btn').forEach(btn => btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        showPopover(btn, 'wishlist');
+      }));
+      // Size selection
+      $all('.size-popover').forEach(pop => pop.addEventListener('click', handleSizeSelect));
+      // Hide popover on click outside
+      document.addEventListener('click', hideAllPopovers);
+      // Prevent popover from closing when clicking inside
+      $all('.size-popover').forEach(pop => pop.addEventListener('click', function(e) { e.stopPropagation(); }));
+      // Search
+      $('#search').addEventListener('input', function(e) {
+        const q = e.target.value.trim().toLowerCase();
+        const products = $all('#products .product');
+        products.forEach(p => {
+          const title = p.querySelector('h2').textContent.toLowerCase();
+          const desc = p.querySelector('p').textContent.toLowerCase();
+          p.style.display = (title.includes(q) || desc.includes(q)) ? 'block' : 'none';
+        });
+      });
+    });
+  </script>
 </body>
 </html>

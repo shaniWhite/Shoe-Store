@@ -15,32 +15,8 @@
       "description": "An eye-catching shoe perfect for everyday wear.",
       "price": 89.99,
       "image": "/images/black-colors.jpg",
-      "quantity": 3,
-      "size": "37"
-    },
-    {
-      "title": "Blue and White Dunks",
-      "description": "A versatile sneaker for casual outings.",
-      "price": 69.99,
-      "image": "/images/blue-white.jpg",
-      "quantity": 3,
-      "size": "37"
-    },
-    {
-      "title": "White & Green",
-      "description": "A clean and fresh style for any occasion.",
-      "price": 79.99,
-      "image": "/images/green-white.jpg",
       "quantity": 1,
-      "size": "37"
-    },
-    {
-      "title": "Tie-Dye Black Dunks",
-      "description": "A bold choice with a unique color pattern.",
-      "price": 79.99,
-      "image": "/images/colorful.jpg",
-      "quantity": 1,
-      "size": "37"
+      "size": "38"
     }
   ],
   "shir": [],
@@ -113,5 +89,16 @@
       "quantity": 1,
       "size": "37"
     }
-  ]
+  ],
+  "shaniw": [
+    {
+      "title": "Black with Patches Dunks",
+      "description": "An eye-catching shoe perfect for everyday wear.",
+      "price": 89.99,
+      "image": "/images/black-colors.jpg",
+      "quantity": 1,
+      "size": "37"
+    }
+  ],
+  "shaniwhite": []
 }

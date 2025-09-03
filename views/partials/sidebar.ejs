@@ -1,0 +1,17 @@
+<nav id="sidebar" style="position:fixed; top:0; right:-320px; width:320px; height:100vh; background:#fff; box-shadow:-2px 0 16px rgba(0,0,0,0.08); z-index:9999; transition:right 0.3s; display:flex; flex-direction:column; padding:48px 32px;">
+  <button id="close-sidebar" style="align-self:flex-end; background:none; border:none; font-size:2em; color:#222; cursor:pointer;">&times;</button>
+  <ul style="list-style:none; padding:0; margin:32px 0 0 0; font-size:1.2em;">
+    <% if (typeof username !== 'undefined' && username === 'admin') { %>
+      <li><a href="/users/admin">Admin</a></li>
+    <% } %>
+    <% if (!username) { %>
+      <li><a href="/users/login">Login</a></li>
+    <% } %>
+    
+    <li><a href="/users/giftcard">Buy Gift Card</a></li>
+    <li><a href="/users/contact">Contact Us</a></li>
+    <li><a href="/users/terms">Regulations and Terms</a></li>
+    <li><a href="/users/logout">Logout</a></li>
+  </ul>
+</nav>
+<div id="sidebar-backdrop" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.18); z-index:9998;"></div>

@@ -7,27 +7,28 @@
     <link rel="stylesheet" href="/login.css">
 </head>
 <body>
-    <h1>Welcome to the Sneakers Store!</h1>
-    <p>Please log in to continue shopping.</p>
-
-    <% if (typeof error !== 'undefined') { %>
-        <p style="color: red;"><%= error %></p>
-    <% } %>
-
-    <form action="/users/login" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-
-        <label>
-            <input type="checkbox" name="rememberMe"> Remember Me
-        </label>
-
-        <button class="button-minimal">Login</button>
-    </form>
-
-    <p>Don't have an account? <a href="/users/register">Register</a></p>
-</body>
+    <div style="min-height:100vh; background:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+            <div style="width:100%; display:flex; align-items:center; justify-content:center; margin-bottom:24px;">
+                <div style="font-family:'Montserrat', 'Playfair Display', Arial, sans-serif; font-size:2.8em; font-weight:800; letter-spacing:0.12em; color:#222; text-transform:uppercase; text-align:center; position:relative;">
+                   
+                    <span style="display:block; width:48px; height:4px; background:#bfa76f; margin:16px auto 0 auto; border-radius:2px;"></span>
+                    <div style="font-size:1.1em; font-weight:700; letter-spacing:0.08em; color:#bfa76f; margin-top:10px;">STEPUP</div>
+                </div>
+            </div>
+            <div style="width:100%; text-align:center; font-size:1.1em; color:#222; margin-bottom:18px;">Please log in to continue shopping.</div>
+            <% if (typeof error !== 'undefined') { %>
+                <div style="color: #bfa76f; font-weight:600; margin-bottom:12px;"><%= error %></div>
+            <% } %>
+            <form action="/users/login" method="POST" style="background:#fff; border-radius:18px; box-shadow:0 2px 16px rgba(191,167,111,0.08); padding:24px 24px; min-width:260px; max-width:320px; display:flex; flex-direction:column; gap:10px; align-items:center;">
+                <label for="username" style="font-family:'Montserrat', Arial, sans-serif; font-size:1em; color:#222; font-weight:600; align-self:flex-start;">Username:</label>
+                <input type="text" id="username" name="username" required style="width:100%; padding:8px 10px; border:1px solid #bfa76f; border-radius:6px; font-size:1em; background:#faf8f2; color:#222;">
+                <label for="password" style="font-family:'Montserrat', Arial, sans-serif; font-size:1em; color:#222; font-weight:600; align-self:flex-start;">Password:</label>
+                <input type="password" id="password" name="password" required style="width:100%; padding:8px 10px; border:1px solid #bfa76f; border-radius:8px; font-size:1em; background:#faf8f2; color:#222;">
+                <label style="align-self:flex-start; font-size:1em; color:#222;">
+                    <input type="checkbox" name="rememberMe" style="margin-right:6px;"> Remember Me
+                </label>
+                <button class="button-minimal" style="width:100%; padding:8px 0; background:#fff; color:#bfa76f; border:2px solid #bfa76f; border-radius:8px; font-size:1.1em; font-family:'Montserrat', Arial, sans-serif; font-weight:700; letter-spacing:0.08em; cursor:pointer; margin-top:8px;">LOGIN</button>
+            </form>
+            <div style="width:100%; text-align:center; margin-top:8px; font-size:1em; color:#222;">Don't have an account? <a href="/users/register" style="color:#bfa76f; font-weight:700; text-decoration:none;">Register</a></div>
+                
 </html>

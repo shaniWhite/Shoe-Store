@@ -1,38 +1,55 @@
+.icon-btn svg {
+    transition: fill 0.3s, stroke 0.3s;
+}
+.icon-btn.heart-btn .heart-icon {
+    fill: none;
+    stroke: #222;
+}
+.icon-btn.heart-btn.active .heart-icon {
+    fill: #bfa76f;
+    stroke: #bfa76f;
+}
+.icon-btn.cart-btn .cart-icon {
+    fill: none;
+    stroke: #222;
+}
+.icon-btn.cart-btn.active .cart-icon {
+    fill: #bfa76f;
+    stroke: #bfa76f;
+}
 /* common.css */
 
 /* General Styling */
 body {
-    background-color: #f0f0f0;
-    font-family: 'Calibri', sans-serif;
-    color: #333;
+    background: #fff;
+    font-family: 'Montserrat', 'Lato', Arial, sans-serif;
+    color: #222;
     margin: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
+    padding: 0;
     min-height: 100vh;
+    letter-spacing: 0.02em;
 }
 
 /* Title Styling for All Pages */
+/* Headings */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Calibri', sans-serif;
-    color: #333;
+    font-family: 'Montserrat', 'Lato', Arial, sans-serif;
+    color: #111;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin: 0 0 20px 0;
 }
 
 /* Navigation Styling */
 nav {
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
-    background-color: #e0e0e0;
+    background: #fff;
     width: 100%;
-    padding: 10px 0;
-    margin-bottom: 20px;
+    padding: 24px 0 8px 0;
+    margin-bottom: 32px;
     box-sizing: border-box;
-    padding-left: 20px;
-    padding-right: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
     z-index: 1000;
 }
 
@@ -42,82 +59,168 @@ nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    gap: 32px;
+    flex-wrap: wrap;
 }
 
 nav ul li {
-    margin: 0 15px;
+    margin: 0;
 }
 
 nav ul li a {
     text-decoration: none;
-    color: #000000;
-    font-size: 1.2em;
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 1px;
+    color: #222;
+    font-size: 1.1em;
+    font-family: 'Montserrat', 'Lato', Arial, sans-serif;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    transition: color 0.3s ease;
+    transition: color 0.2s ease;
     white-space: nowrap;
+    padding: 4px 8px;
 }
 
 nav ul li a:hover {
-    color: #007bff;
+    color: #bfa76f;
+    border-bottom: 2px solid #bfa76f;
 }
 
 /* Button Styling */
+/* Minimal Button Styling */
 .button-minimal, .button-option, form button[type="submit"] {
-    padding: 10px 20px;
+    padding: 10px 24px;
     font-size: 1em;
-    background-color: #fff;
-    color: #000;
-    border: 1px solid #000;
+    background: #fff;
+    color: #222;
+    border: 1px solid #222;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.2s ease;
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 1px;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    font-family: 'Montserrat', 'Lato', Arial, sans-serif;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    border-radius: 0px;
+    border-radius: 0;
     display: inline-block;
     margin: 0;
     box-sizing: border-box;
     text-align: center;
 }
 
+/* Button Hover */
 .button-minimal:hover, .button-option:hover, form button[type="submit"]:hover {
-    background-color: #f0f0f0;
-    color: #007bff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: #f9f9f9;
+    color: #bfa76f;
+    border-color: #bfa76f;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .button-minimal:focus, .button-option:focus {
     outline: none;
-    border-color: #3f3f3f;
+    border-color: #bfa76f;
 }
 
 /* Input and Select Elements Styling */
 input, select, textarea {
-    font-family: 'Calibri', sans-serif;
+    font-family: 'Montserrat', 'Lato', Arial, sans-serif;
     font-size: 1em;
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+    border-radius: 0;
     box-sizing: border-box;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 input:focus, select:focus, textarea:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    border-color: #bfa76f;
+    box-shadow: 0 0 4px rgba(191, 167, 111, 0.2);
     outline: none;
 }
 
 /* Character Count Styling */
 .character-count {
     font-size: 0.9em;
-    color: #666;
+    color: #aaa;
     text-align: right;
     margin-bottom: 20px;
+}
+
+/* Product Grid Styling */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 0 40px 0;
+    box-sizing: border-box;
+}
+
+.product-card {
+    background: #fff;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px 16px 16px;
+    transition: box-shadow 0.2s;
+    position: relative;
+}
+.product-card:hover {
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+}
+
+.product-card img {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 16px;
+    border-radius: 0;
+}
+
+.product-info {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.product-title {
+    font-size: 1.1em;
+    font-weight: 500;
+    color: #222;
+    margin-bottom: 4px;
+}
+
+.product-price {
+    font-size: 1em;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+.product-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 8px;
+}
+
+/* Icon Buttons */
+.icon-btn {
+    background: none;
+    border: none !important;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+    box-shadow: none;
+}
+.icon-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    transition: fill 0.2s;
+}
+.icon-btn:hover svg {
+    fill: #bfa76f;
 }

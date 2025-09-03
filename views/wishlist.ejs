@@ -1,87 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Wishlist</title>
-    <link rel="stylesheet" href="/main.css">
-    <link rel="stylesheet" href="/store.css">
-    <script>
-        function removeFromWishlist(title, size) {
-            fetch('/users/wishlist/remove', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ title: title, size: size })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Remove the item from the DOM
-                    const itemElement = document.getElementById(`${title}-${size}`);
-                    if (itemElement) {
-                        itemElement.remove();
-                    }
-        
-                    // Check if the wishlist is now empty
-                    const wishlistItems = document.querySelectorAll('#wishlist-items li');
-                    if (wishlistItems.length === 0) {
-                        // Display "Your wishlist is empty" message
-                        const wishlistContainer = document.getElementById('wishlist-container');
-                        const emptyMessage = document.createElement('p');
-                        emptyMessage.textContent = 'Your wishlist is empty.';
-                        wishlistContainer.appendChild(emptyMessage);
-                    }
-                } else {
-                    console.error('Error removing item from wishlist.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
-
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Wishlist</title>
+  <link rel="stylesheet" href="/main.css"/>
+  <link rel="stylesheet" href="/store.css"/>
 </head>
 <body>
-    <h1>Your Wishlist</h1>
+    <header style="width:100%; display:flex; align-items:center; justify-content:space-between; margin:0 0 24px 0; position:sticky; top:0; background:#fff; z-index:1002; box-shadow:0 2px 12px rgba(0,0,0,0.04); padding:24px 0;">
+        <a href="/users/store" title="Back to Store" style="position:absolute; left:24px; top:24px; z-index:1003; text-decoration:none;">
+            <span style="display:inline-block; width:32px; height:32px; background:none; border:none; cursor:pointer;">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="16" cy="16" r="15" stroke="#222" stroke-width="2" fill="#fff"/>
+                    <line x1="11" y1="11" x2="21" y2="21" stroke="#bfa76f" stroke-width="2"/>
+                    <line x1="21" y1="11" x2="11" y2="21" stroke="#bfa76f" stroke-width="2"/>
+                </svg>
+            </span>
+        </a>
 
-    <!-- Navigation -->
-    <nav>
-        <ul>
-            <% if (typeof username !== 'undefined' && username === 'admin') { %>
-                <li><a href="/users/admin">Admin</a></li>
-            <% } %>
-            <li><a href="/users/login">Login</a></li>
-            <li><a href="/users/store">Store</a></li>
-            <li><a href="/users/cart">Cart</a></li>
-            <li><a href="/users/wishlist">Wishlist</a></li>
-            <li><a href="/users/giftcard">Buy Gift Card</a></li>  
-            <li><a href="/users/contact">Contact Us</a></li>
-            <li><a href="/users/terms">Regulations and Terms</a></li>
-            <li><a href="/users/logout">Logout</a></li>
-        </ul>
-    </nav>
+    <div style="flex:1; display:flex; align-items:center; justify-content:center;"></div>
 
-    <!-- Wishlist Items -->
-    <div class="container">
+    <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+        <div style="font-family:'Montserrat', 'Playfair Display', Arial, sans-serif; font-size:2.8em; font-weight:800; letter-spacing:0.12em; color:#222; text-transform:uppercase; text-align:center; position:relative;">
+            StepUp
+            <span style="display:block; width:48px; height:4px; background:#bfa76f; margin:16px auto 0 auto; border-radius:2px;"></span>
+            <div style="font-size:0.5em; font-weight:700; letter-spacing:0.08em; color:#222; margin-top:10px;">My Wishlist</div>
+        </div>
+    </div>
+
+    <div style="flex:1; display:flex; align-items:center; justify-content:flex-end;">
+      <button id="hamburger" style="background:none; border:none; cursor:pointer; padding:8px;">
+        <span style="display:block; width:32px; height:24px; position:relative;">
+          <span style="display:block; height:3px; width:100%; background:#222; border-radius:2px; position:absolute; top:0;"></span>
+          <span style="display:block; height:3px; width:100%; background:#222; border-radius:2px; position:absolute; top:10px;"></span>
+          <span style="display:block; height:3px; width:100%; background:#222; border-radius:2px; position:absolute; top:20px;"></span>
+        </span>
+      </button>
+    </div>
+
+    <%- include('partials/sidebar') %>
+    </header>
+
+  <!-- Wishlist Items -->
+    <div class="container" id="wishlist-container">
         <ul id="wishlist-items">
-            <% if (wishlist.length > 0) { %>
-                <% wishlist.forEach(function(item) { %>
-                    <li id="<%= item.title %>-<%= item.size %>">
-                        <strong><%= item.title %></strong> (Size: <%= item.size %>)
-                        <% if (item.image) { %>
-                            <img src="<%= item.image %>" alt="<%= item.title %>">
-                        <% } %>
-                        <p>Price: $<%= item.price %></p>
-                        <button onclick="removeFromWishlist('<%= item.title %>', '<%= item.size %>')">Remove</button>
-                    </li>
-                <% }); %>
-            <% } else { %>
-                <p>Your wishlist is empty.</p>
-            <% } %>
+        <% if (wishlist.length > 0) { %>
+            <% wishlist.forEach(function(item) { %>
+                <li id="<%= (item.title || '').replace(/\s+/g, '-') %>-<%= item.size %>">
+                    <strong><%= item.title %></strong> (Size: <%= item.size %>)
+                    <% if (item.image) { %>
+                    <img src="<%= item.image %>" alt="<%= item.title %>">
+                    <% } %>
+                    <p>Price: $<%= item.price %></p>
+
+                <button class="icon-btn remove-item" data-title="<%= item.title %>" data-size="<%= item.size %>" title="Remove">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="3 6 5 6 21 6" />
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m5 0V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
+                        <line x1="10" y1="11" x2="10" y2="17" />
+                        <line x1="14" y1="11" x2="14" y2="17" />
+                    </svg>
+                </button>
+
+            <button class="icon-btn cart-btn" 
+                type="button" data-title="<%= item.title %>" data-size="<%= item.size %>" data-price="<%= item.price %>" title="Add to Cart" aria-label="Add <%= item.title %> to cart">
+                <svg viewBox="0 0 24 24" class="cart-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                    <circle cx="7" cy="20" r="2" />
+                    <circle cx="17" cy="20" r="2" />
+                    <path d="M3 6h2l.4 2M7 6h14l-1.35 6.44a2 2 0 0 1-1.96 1.56H8.53a2 2 0 0 1-1.96-1.56L5.21 6H3z" />
+                </svg>
+            </button>
+          </li>
+        <% }); %>
+      <% } else { %>
+        <p>Your wishlist is empty. <a href="/users/store">Add items from the store</a>.</p>
+      <% } %>
         </ul>
     </div>
+
+  <script>
+    // Add to cart
+    function addToCart(title, size, price) {
+      fetch('/users/store/add-to-cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, size, price: Number(price) })
+      })
+      .then(res => res.ok ? res.json() : Promise.reject(res))
+      .then(data => {
+        if (data && data.success) {
+          // Remove from wishlist automatically
+          removeFromWishlist(title, size);
+        } else {
+          alert('Failed to add item to cart.');
+        }
+      })
+      .catch(err => {
+        console.error('Error:', err);
+        alert('Failed to add item to cart.');
+      });
+    }
+
+    // Remove from wishlist (single source of truth - POST)
+    function removeFromWishlist(title, size) {
+      fetch('/users/wishlist/remove', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, size })
+      })
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to remove from wishlist');
+        // עדכון DOM
+        const li = document.getElementById(`${title.replace(/\s+/g, '-')}-${size}`);
+        if (li) li.remove();
+
+        // אם התרוקן – הודעה
+        if (!document.querySelector('#wishlist-items li')) {
+          document.getElementById('wishlist-items').innerHTML =
+            '<p>Your wishlist is empty. <a href="/users/store">Add items from the store</a>.</p>';
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert('Failed to remove item.');
+      });
+    }
+
+    // Hamburger / Sidebar
+    document.addEventListener('DOMContentLoaded', function() {
+      var sidebar = document.getElementById('sidebar');
+      var backdrop = document.getElementById('sidebar-backdrop');
+      var hamburger = document.getElementById('hamburger');
+      var closeSidebar = document.getElementById('close-sidebar');
+
+      if (hamburger && sidebar && backdrop && closeSidebar) {
+        hamburger.addEventListener('click', function() {
+          sidebar.style.right = '0';
+          backdrop.style.display = 'block';
+        });
+        closeSidebar.addEventListener('click', function() {
+          sidebar.style.right = '-320px';
+          backdrop.style.display = 'none';
+        });
+        backdrop.addEventListener('click', function() {
+          sidebar.style.right = '-320px';
+          backdrop.style.display = 'none';
+        });
+      }
+
+      // Wire up wishlist trash (remove) icon
+      document.querySelectorAll('.remove-item').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          var title = btn.getAttribute('data-title');
+          var size = btn.getAttribute('data-size');
+          removeFromWishlist(title, size);
+        });
+      });
+
+      // Wire up cart icon
+      document.querySelectorAll('.cart-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          var title = btn.getAttribute('data-title');
+          var size = btn.getAttribute('data-size');
+          var price = btn.getAttribute('data-price');
+          addToCart(title, size, price);
+        });
+      });
+    });
+  </script>
 </body>
 </html>
